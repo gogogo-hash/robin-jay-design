@@ -25,6 +25,15 @@ git switch -c feat/<name>
 git push -u origin feat/<name>
 ```
 
+**Open a pull request**
+
+```bash
+git push
+gh pr create --base develop --title "feat(scope): summary" --body "What and why"
+```
+
+Always set `--base develop`, since `gh` otherwise targets the default branch. In the GitHub UI, change the base branch from `main` to `develop` before creating the PR. Then squash and merge.
+
 **Keep a branch up to date with `develop`**
 
 ```bash
