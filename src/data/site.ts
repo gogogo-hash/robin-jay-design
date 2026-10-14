@@ -44,7 +44,7 @@ export type PriceCategory = {
 export const site = {
   name: "ROBIN & JAY",
   tagline: "届く、伝わる、誰かのためになるデザインを。",
-  logo: img("logo.svg"),
+  logo: img("logo.jpg"),
 
   nav: [
     { label: "Works", href: "#works" },
@@ -101,7 +101,7 @@ export const site = {
         id: "shop-card",
         title: "ショップカード",
         category: "Business Card",
-        image: img("works/shop-card.jpg"),
+        image: img("works/knews-business-card.jpg"),
         alt: "KNEWS ショップカード",
       },
       {
@@ -175,7 +175,7 @@ export const site = {
     title: "PRICE",
     subtitle: "あなたに寄り添い、あるべき姿を組み立てる",
     heading: "PRICE LIST",
-    background: img("price/background.jpg"),
+    background: img("price/price-list.jpg"),
     currency: "¥",
     categories: [
       {
