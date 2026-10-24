@@ -3,12 +3,28 @@
 
 const img = (path: string) => `${import.meta.env.BASE_URL}images/${path}`;
 
-export type WorkCategory =
-  | "Web Design"
-  | "Banner"
-  | "Thumbnail"
-  | "Logo"
-  | "Business Card";
+export const sectionIds = {
+  hero: "hero",
+  works: "works",
+  about: "about",
+  reviews: "reviews",
+  pricing: "pricing",
+  contact: "contact",
+} as const;
+
+export type SectionId = (typeof sectionIds)[keyof typeof sectionIds];
+
+export const workCategories = [
+  "Web Design",
+  "Banner",
+  "Thumbnail",
+  "Logo",
+  "Business Card",
+] as const;
+
+export type WorkCategory = (typeof workCategories)[number];
+
+export type WorkFilter = "All" | WorkCategory;
 
 export type Work = {
   id: string;
@@ -22,9 +38,15 @@ export type Work = {
 };
 
 export type Review = {
+  id: string;
   name: string;
   role: string;
   message: string;
+};
+
+export type Paragraph = {
+  id: number;
+  text: string;
 };
 
 export type PriceItem = {
@@ -47,27 +69,22 @@ export const site = {
   logo: img("logo.jpg"),
 
   nav: [
-    { label: "Works", href: "#works" },
-    { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Works", href: sectionIds.works },
+    { label: "About", href: sectionIds.about },
+    { label: "Contact", href: sectionIds.contact },
   ],
 
   hero: {
     title: "PORTFOLIO",
     subtitle: "届く、伝わる、誰かのためになるデザインを。",
+    sectionId: sectionIds.hero,
   },
 
   works: {
     title: "WORK",
     subtitle: "誰かのために、心を込めてつくるデザイン。",
-    filters: [
-      "All",
-      "Web Design",
-      "Banner",
-      "Thumbnail",
-      "Logo",
-      "Business Card",
-    ] as const,
+    sectionId: sectionIds.works,
+    filters: ["All", ...workCategories] as const,
     items: [
       {
         id: "tabilingual",
@@ -75,6 +92,21 @@ export const site = {
         category: "Thumbnail",
         image: img("works/tabilingual.jpg"),
         alt: "旅リンガル ポッドキャストのサムネイル",
+      },
+
+      {
+        id: "TKservice",
+        title: "ポッドキャスト用サムネイル",
+        category: "Thumbnail",
+        image: img("works/TKservice-sama.jpg"),
+        alt: "ポットキャスト用サムネイル",
+      },
+      {
+        id: "企業セミナー 1",
+        title: "起業家セミナーSNS広告バナー",
+        category: "Banner",
+        image: img("works/企業セミナー 1.jpg"),
+        alt: "起業家セミナーSNS広告バナー",
       },
       {
         id: "seminar-banner",
@@ -131,38 +163,44 @@ export const site = {
 
   about: {
     title: "ABOUT ME",
+    sectionId: sectionIds.about,
     photo: img("about/profile.jpg"),
     photoAlt: "プロフィール写真",
     paragraphs: [
-      "ご覧いただきありがとうございます。\nフリーランスとしてWeb広告をメインに手がけている、日本人デザイナーです。",
-      "デザインにおいて私が重視しているのは、単なる美しさだけでなく、「そこに込められた想いを言葉以上に伝えること」です。\n海外での暮らしや、カフェ・アパレル業界で培った「人の気持ちに寄り添う視点」をデザインの土台にしています。じっくりとお話を聞きながら、課題を解決するための最適なクリエイティブをカスタマイズします。",
-      "国内向けのバナー・サムネイルから、英語対応のバナー制作まで幅広く承っています。\nお見積もりや小さなお悩みなど、いつでもお気軽にお問い合わせください。",
+      {id:1, text: "ご覧いただきありがとうございます。\nフリーランスとしてWeb広告をメインに手がけている、日本人デザイナーです。"},
+      {id:2, text: "デザインにおいて私が重視しているのは、単なる美しさだけでなく、「そこに込められた想いを言葉以上に伝えること」です。\n海外での暮らしや、カフェ・アパレル業界で培った「人の気持ちに寄り添う視点」をデザインの土台にしています。じっくりとお話を聞きながら、課題を解決するための最適なクリエイティブをカスタマイズします。"},
+      {id:3, text: "国内向けのバナー・サムネイルから、英語対応のバナー制作まで幅広く承っています。\nお見積もりや小さなお悩みなど、いつでもお気軽にお問い合わせください。"},
     ],
   },
 
   reviews: {
     title: "REVIEW",
     subtitle: "お客様からのメッセージ",
+    sectionId: sectionIds.reviews,
     items: [
       {
+        id: "sarah-chen",
         name: "Sarah Chen",
         role: "Creative Director",
         message:
           "お仕事ありがとうございました。とてもスムーズにコミュニケーションが取れて、また素早く対応して頂いてとても助かりました。今後ともどうぞよろしくお願い致します。",
       },
       {
+        id: "michael-torres",
         name: "Michael Torres",
         role: "Product Lead",
         message:
           "迅速にご対応いただいただけでなく、こちらの意図を正確に汲み取っていただきました。ありがとうございました！",
       },
       {
+        id: "emma-larsson",
         name: "Emma Larsson",
         role: "Brand Manager",
         message:
           "丁寧に対応頂けて、非常に助かりました。感謝しています。お勧めのワーカーさんです。",
       },
       {
+        id: "james-park",
         name: "James Park",
         role: "CEO, StartupCo",
         message:
@@ -174,8 +212,9 @@ export const site = {
   pricing: {
     title: "PRICE",
     subtitle: "あなたに寄り添い、あるべき姿を組み立てる",
+    sectionId: sectionIds.pricing,
     heading: "PRICE LIST",
-    background: img("price/price-list.jpg"),
+    photo: img("price/price-list.png"),
     currency: "¥",
     categories: [
       {
@@ -246,6 +285,7 @@ export const site = {
   contact: {
     title: "CONTACT",
     subtitle: "お気軽にお問い合わせください。",
+    sectionId: sectionIds.contact,
     fields: {
       name: "お名前",
       email: "Email",

@@ -1,7 +1,17 @@
-type Props = {};
+import SectionHeading from "./ui/SectionHeading";
 
-const Price = (props: Props) => {
-  return <>first</>;
+type Props = {
+  title: string;
+  subtitle: string;
+  sectionId: string;
+};
+
+const Price = ({ title, subtitle, sectionId }: Props) => {
+  return (
+    <section id={sectionId} className="Price">
+      <SectionHeading title={title} subtitle={subtitle} />
+    </section>
+  );
 };
 
 export default Price;

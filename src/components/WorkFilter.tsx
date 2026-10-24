@@ -1,7 +1,7 @@
 type Props = {};
 
 const WorkFilter = (props: Props) => {
-  return <>first</>;
+  return <></>;
 };
 
 export default WorkFilter;
