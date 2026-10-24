@@ -1,4 +1,3 @@
-import SectionHeading from "./ui/SectionHeading";
 import type { Paragraph } from "../data/site";
 type Props = {
   title: string;
