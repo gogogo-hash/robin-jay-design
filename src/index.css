@@ -1,6 +1,8 @@
 @import "@fontsource/amatic-sc/400.css";
+@import "@fontsource/inter/300.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
+@import "@fontsource/noto-sans-jp/300.css";
 @import "@fontsource/noto-sans-jp/400.css";
 @import "@fontsource/noto-sans-jp/500.css";
 @import "tailwindcss";
@@ -35,17 +37,22 @@
   --font-sans: "Inter", "Noto Sans JP", system-ui, sans-serif;
 
   /* Display sizes (Amatic SC) */
-  --text-logo: 3rem;
-  --text-logo--line-height: 1.5;
+  --text-logo: 3rem; /* HEADER / LOGO */
+  --text-logo--line-height: 1;
   --text-title: 3.75rem; /* TODO: 4 uses, I can't tell where from the sheet */
   --text-heading: 4rem; /* WORK / ABOUT ME / REVIEW / PRICE / CONTACT */
   --text-hero: 5rem; /* PORTFOLIO */
+  --text-hero--line-height: 1;
 
-  /* Body sizes (Inter), consolidated from 8 near-duplicates */
+  /* Body sizes (Inter / Noto Sans JP) */
   --text-xs: 0.85rem;
+  --text-xs--line-height: 1.8;
   --text-sm: 0.95rem;
+  --text-sm--line-height: 1.8;
   --text-base: 1rem;
+  --text-base--line-height: 1.8;
   --text-lg: 1.1rem;
+  --text-lg--line-height: 1.7;
 }
 
 @layer base {
@@ -57,5 +64,18 @@
   }
   body {
     @apply bg-background text-foreground;
+    line-height: 2.5;
   }
+}
+
+@utility fade-border-b {
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(
+      to right,
+      transparent,
+      var(--border) 30%,
+      var(--border) 70%,
+      transparent
+    )
+    1;
 }
